@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)file:///C:/Users/erenb/OneDrive/my%20websites/Website/fc.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kudu Chat</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  .chat-box {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+  }
+  .chat-message {
+    margin-bottom: 10px;
+  }
+  .chat-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .image-upload {
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+  <div class="chat-box">
+    <h1>Kudu Chat</h1>
+    <div id="chat-log"></div>
+    <input type="text" id="username-input" placeholder="Enter your username">
+    <input type="text" id="chat-input" placeholder="Type your message">
+    <button id="send-button">Send</button>
+    <div class="image-upload">
+      <input type="file" id="image-upload" accept="image/*">
+      <button id="upload-button">Upload Image</button>
+    </div>
+  </div>
+
+  <script>
+    const chatLog = document.getElementById("chat-log");
+    const usernameInput = document.getElementById("username-input");
+    const chatInput = document.getElementById("chat-input");
+    const sendButton = document.getElementById("send-button");
+    const imageUpload = document.getElementById("image-upload");
+    const uploadButton = document.getElementById("upload-button");
+
+    sendButton.addEventListener("click", () => {
+      const username = usernameInput.value || "Anonymous";
+      const message = chatInput.value;
+      if (message.trim() !== "") {
+        const chatMessage = `<div class="chat-message"><strong>${username}:</strong> ${message}</div>`;
+        chatLog.innerHTML += chatMessage;
+        chatInput.value = "";
+      }
+    });
+
+    uploadButton.addEventListener("click", () => {
+      const file = imageUpload.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const imageMessage = `<div class="chat-message"><img src="${event.target.result}" style="max-width: 100%;"></div>`;
+          chatLog.innerHTML += imageMessage;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+
+
+</body></html>
